@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- DaisyUI -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
     <!-- DaisyUI CDN -->
     
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
@@ -12,7 +16,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 </head>
-<body class="bg-[#f4f5f7] h-[100vh] flex justify-center items-center">
+<body class="bg-[#f4f5f7] h-[100vh] flex flex-col justify-center items-center">
+    <div class="h-[130px] w-[300px]  bg-[url(./assets/bg.png)] bg-cover flex justify-center items-center">
+        <img src="./assets/Group.png" alt="">
+    </div>
     <form class="bg-white rounded-2xl p-8 w-[350px]">
         <div>
             <label class="font-semibold" for="">Mobile Number</label>
@@ -24,7 +31,10 @@
             <br>
             <input type="text" placeholder="Enter 4 Digit Pin" class="input  bg-[#f4f5f7] mt-3 rounded-3xl" />
         </div>
-        <button class="btn bg-[#0874f2] mt-5 w-full rounded-3xl text-white font-semibold">Login</button>
+        <button id="login-btn" class="btn bg-[#0874f2] mt-5 w-full rounded-3xl text-white font-semibold">Login</button>
     </form>
+
+    <!-- Js Scripts -->
+    <script src="./script.js"></script>
 </body>
 </html>

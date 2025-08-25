@@ -1,5 +1,16 @@
 const validPin = 1234;
 
+// function to get input values
+
+function getInputValueNumber (id){
+    const inputField = document.getElementById(id)
+    const inputFieldValue = inputField.value
+    const inputFieldValueNumber = parseInt(inputFieldValue)
+
+    return inputFieldValueNumber
+}
+
+
 // Add money features
 
 document.getElementById('add-money').addEventListener('click', function(event){
@@ -11,11 +22,13 @@ document.getElementById('add-money').addEventListener('click', function(event){
 
     const accountNumber = document.getElementById('account-number').value
 
-    const addAmount = parseInt(document.getElementById('add-amount').value)
+    const addAmount = getInputValueNumber('add-amount')
 
-    const pin = parseInt(document.getElementById('add-pin').value)
+    const pin = getInputValueNumber('add-pin')
 
-    const availableBalance = parseInt(document.getElementById('available-balance').innerText);
+    console.log(addAmount);
+
+    const availableBalance = parseInt(document.getElementById('available-balance').innerText)
     // console.log(availableBalance);
 
     if(accountNumber.length<11){
@@ -28,12 +41,13 @@ document.getElementById('add-money').addEventListener('click', function(event){
         return;
     }
 
-    if(availableBalance = 0){
-        alert('add money your account');
-    }
+    // if(availableBalance = 0){
+    //     alert('add money your account');
+    // }
 
 
-    const totalNewAvailableBalance = addAmount + availableBalance;
+    const totalNewAvailableBalance =  addAmount + availableBalance;
+
 
     document.getElementById('available-balance').
     innerText = totalNewAvailableBalance;
@@ -46,12 +60,11 @@ document.getElementById('withdraw-money').addEventListener('click', function(eve
 
     const agentNumber = document.getElementById('agent-number').value 
 
-    const amaount = parseInt(document.getElementById('withdraw-amaount').value)
+    const amaount = getInputValueNumber('withdraw-amaount')
 
     const availableBalance = document.getElementById('available-balance').innerText
 
-    const accountPin = parseInt(document.getElementById('account-pin').value)
-
+    const accountPin = getInputValueNumber('account-pin')
 
     // console.log(amaount,availableBalance);
 
@@ -69,9 +82,9 @@ document.getElementById('withdraw-money').addEventListener('click', function(eve
         alert("not enough balance");
     }
 
-    if(availableBalance == 0){
-        alert('not enough balance for withdrow');
-    }
+    // if(availableBalance == 0){
+    //     alert('not enough balance for withdrow');
+    // }
 
     const totalMainBalance = availableBalance - amaount;
 

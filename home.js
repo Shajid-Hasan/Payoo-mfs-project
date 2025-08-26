@@ -10,17 +10,37 @@ function getInputValueNumber (id){
     return inputFieldValueNumber
 }
 
+function getInputValue(id){
+    const inputField = document.getElementById(id)
+    const inputFieldValue = inputField.value
+
+    return inputFieldValue
+}
+
+// Function to get innerText
+function getAvailableBalance(id){
+    const mainBalance = document.getElementById(id)
+    const mainBalanceValue = mainBalance.innerText
+    const mainBalanceValueNumber = parseInt(mainBalanceValue)
+
+    return mainBalanceValueNumber
+}
+
+// Function to set innerText
+
+function setInnerText(value){
+    const availableBalanceElement = document.getElementById('available-balance')
+    availableBalanceElement.innerText = value
+}
 
 // Add money features
 
 document.getElementById('add-money').addEventListener('click', function(event){
     event.preventDefault();
-    // console.log('Add money button clicked');
 
+    const  bank = getInputValue('bank')
 
-    const  bank = document.getElementById('bank').value
-
-    const accountNumber = document.getElementById('account-number').value
+    const accountNumber = getInputValue('account-number')
 
     const addAmount = getInputValueNumber('add-amount')
 
@@ -28,8 +48,7 @@ document.getElementById('add-money').addEventListener('click', function(event){
 
     console.log(addAmount);
 
-    const availableBalance = parseInt(document.getElementById('available-balance').innerText)
-    // console.log(availableBalance);
+    const availableBalance = getAvailableBalance('available-balance')
 
     if(accountNumber.length<11){
         alert('please provide valid account number');
@@ -41,32 +60,24 @@ document.getElementById('add-money').addEventListener('click', function(event){
         return;
     }
 
-    // if(availableBalance = 0){
-    //     alert('add money your account');
-    // }
-
-
     const totalNewAvailableBalance =  addAmount + availableBalance;
 
 
-    document.getElementById('available-balance').
-    innerText = totalNewAvailableBalance;
+    setInnerText(totalNewAvailableBalance)
 })
 
 // Cash out money features
-// const pin = 1234;
+const accountPin = 1234;
 document.getElementById('withdraw-money').addEventListener('click', function(event){
     event.preventDefault();
 
-    const agentNumber = document.getElementById('agent-number').value 
+    const agentNumber = getInputValue('agent-number')
 
     const amaount = getInputValueNumber('withdraw-amaount')
 
-    const availableBalance = document.getElementById('available-balance').innerText
+    const availableBalance = getAvailableBalance('available-balance')
 
     const accountPin = getInputValueNumber('account-pin')
-
-    // console.log(amaount,availableBalance);
 
     if(agentNumber.length<11){
         alert('write valid agent number');
@@ -82,29 +93,106 @@ document.getElementById('withdraw-money').addEventListener('click', function(eve
         alert("not enough balance");
     }
 
-    // if(availableBalance == 0){
-    //     alert('not enough balance for withdrow');
-    // }
-
     const totalMainBalance = availableBalance - amaount;
 
-    document.getElementById('available-balance').
-    innerText = totalMainBalance;
+    setInnerText(totalMainBalance)
 
 })
 
+// Transfer Money
+document.getElementById('send-money').addEventListener('click', function(event){
+    event.preventDefault();
+
+    const userAccountNumber = getInputValue('user-accout-number')
+
+    const sendAmaount = getInputValueNumber('send-amount')
+
+    const availableBalance = getAvailableBalance('available-balance')
+
+    const accountPin = getInputValueNumber('transfer-pin')
+
+    if(userAccountNumber.length<11){
+        alert('write valid agent number');
+        return;
+    }
+
+    if(accountPin !== validPin){
+        alert("invalid pin");
+        return;
+    }
+
+    if(sendAmaount > availableBalance){
+        alert("not enough balance");
+    }
+
+    const totalMainBalance = availableBalance - sendAmaount;
+
+    setInnerText(totalMainBalance)
+
+})
+
+// Get Bonus
+
+document.getElementById('get-btn-bonus').addEventListener('click', function(event){
+    event.preventDefault()
+    const bonus = getInputValueNumber('bonus-coupon')
+})
+
+// Pay bill
+
+document.getElementById('pay-money').addEventListener('click', function(event){
+    event.preventDefault()
+    const selectToPay = getInputValue('back')
+    const billerAccountNumber = getInputValue('biller-account-number')
+
+    const amountToPay = getInputValueNumber('pay-amount')
+
+    const pinNumber = getInputValueNumber('digit-pin')
+
+    const availableBalance = getAvailableBalance('available-balance')
+
+    const totalMainBalance = availableBalance - amountToPay;
+
+    setInnerText(totalMainBalance)
+})
+
+
+// function to toggle
+function handleToggle(id){
+    const forms = document.getElementsByClassName('form')
+    for(const form of forms){
+        form.style.display = 'none'
+    }
+    document.getElementById(id).style.display = 'block'
+}
 
 // Taggling feature
 
+// Add money toggling
 document.getElementById('add-btn').addEventListener('click', function(){
-    document.getElementById('cash-out-parent').style.display = 'none';
-    document.getElementById('add-money-parent').style.display = 'block';
-})
-document.getElementById('cash-out-btn').addEventListener('click', function(){
-    document.getElementById('add-money-parent').style.display = 'none';
-    document.getElementById('cash-out-parent').style.display = 'block';
+    handleToggle('add-money-parent')
 })
 
+// Cashout money toggling
+document.getElementById('cash-out-btn').addEventListener('click', function(){
+    handleToggle('cash-out-parent')
+})
+
+// Transfer money toggling
+document.getElementById('transfer-money-btn').addEventListener('click', function(){
+    handleToggle('transfer-money-parent')
+})
+
+// Get bonus toggling
+document.getElementById('get-bonus-btn').addEventListener('click', function(){
+    handleToggle('get-bonus-parent')
+})
+
+// pay bill toggling
+
+document.getElementById('pay-bill-btn').addEventListener('click', function(){
+    handleToggle('pay-bill-parent')
+})
 
 
 
